@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Document Processing</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>SmartDoc AI</h1>
+        <p>Intelligent Document Processing System</p>
+    </header>
+
+    <main class="container">
+
+        <h2>Upload Your Document</h2>
+
+        <p class="description">
+            Upload your PDF or image to automatically extract text.
+        </p>
+
+        <form action="/upload"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <div class="upload-box">
+
+                <h3>Select Your Document</h3>
+
+                <input
+                    type="file"
+                    name="document"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required
+                >
+
+                <p>Supported formats: PDF, JPG, JPEG, PNG</p>
+
+            </div>
+
+            <button type="submit">
+                Process Document
+            </button>
+
+        </form>
+
+        <section class="features">
+
+            <h3>System Features</h3>
+
+            <div class="feature-list">
+                <p>📄 PDF Processing</p>
+                <p>🖼️ Image Processing</p>
+                <p>🔍 OCR Text Extraction</p>
+                <p>💾 Database Storage</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>SmartDoc AI | Intelligent Document Processing</p>
+    </footer>
+    <a href="/history">View Document History</a>
+</body>
+</html>
