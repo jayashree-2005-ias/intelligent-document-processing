@@ -1,4 +1,5 @@
 import os
+import shutil
 import fitz
 import pytesseract
 
@@ -7,9 +8,19 @@ from preprocess import preprocess_image
 
 
 # Tesseract installation path
-pytesseract.pytesseract.tesseract_cmd = (
-    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-)
+if os.name == "nt":
+
+    # Windows (VS Code)
+    pytesseract.pytesseract.tesseract_cmd = (
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    )
+
+else:
+
+    # Linux (Render)
+    pytesseract.pytesseract.tesseract_cmd = (
+        shutil.which("tesseract") or "/usr/bin/tesseract"
+    )
 
 
 def preprocess_document(file_path):
@@ -25,7 +36,6 @@ def preprocess_document(file_path):
 
         for page in pdf:
 
-            # Convert PDF page into image
             pix = page.get_pixmap(
                 matrix=fitz.Matrix(2, 2),
                 alpha=False
@@ -37,10 +47,8 @@ def preprocess_document(file_path):
                 pix.samples
             )
 
-            # Preprocess image
             processed_image = preprocess_image(image)
 
-            # Extract text
             text = pytesseract.image_to_string(
                 processed_image,
                 lang="eng"
