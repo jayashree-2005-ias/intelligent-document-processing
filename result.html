@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Document Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>SmartDoc AI</h1>
+        <p>Document Processing Result</p>
+    </header>
+
+    <main class="container">
+
+        <h2>Processing Completed</h2>
+
+        <p>
+            <strong>Document Name:</strong>
+            {{ filename }}
+        </p>
+
+        <h3>Extracted Text</h3>
+
+        <div class="result-box">
+            <pre>{{ extracted_text }}</pre>
+        </div>
+
+        <a href="/" class="back-button">
+            Upload Another Document
+        </a>
+
+    </main>
+
+    <footer>
+        <p>SmartDoc AI | Intelligent Document Processing</p>
+    </footer>
+
+</body>
+</html>
