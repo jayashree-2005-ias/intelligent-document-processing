@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background:#F5F0FF;
+    color: #263445;
+}
+
+header {
+    background:linear-gradient(135deg,#292B70,#6546C9);
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.container {
+    width: 85%;
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 35px;
+    background:#ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.container h2 {
+    color: #173b67;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.description {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.upload-box {
+    border: 2px dashed #6b91b8;
+    border-radius: 10px;
+    padding: 30px 15px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.upload-box h3 {
+    margin-bottom: 20px;
+}
+
+.upload-box input {
+    margin-bottom: 15px;
+    max-width: 100%;
+}
+
+button {
+    display: block;
+    margin: auto;
+    padding: 13px 30px;
+    background: linear-gradient(135deg,#6546C9,#9561D8);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background:linear-gradient(135deg,#4937B5,#7543BD);
+}
+
+.features {
+    margin-top: 35px;
+    text-align: center;
+}
+
+.features h3 {
+    margin-bottom: 20px;
+    color: #173b67;
+}
+
+.feature-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.feature-list p {
+    background: #e5eff9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.result-box {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f3f6fa;
+    border: 1px solid #ccd8e5;
+    border-radius: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.result-box pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+}
+
+.back-button {
+    display: block;
+    width: fit-content;
+    margin: 25px auto 0;
+    padding: 12px 20px;
+    background: #1769aa;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.back-button:hover {
+    background: #104c7e;
+}
+
+footer {
+    background: #173b67;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    margin-top: 40px;
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        width: 92%;
+        padding: 20px;
+    }
+
+    header h1 {
+        font-size: 23px;
+    }
+
+    .feature-list {
+        flex-direction: column;
+    }
+}
