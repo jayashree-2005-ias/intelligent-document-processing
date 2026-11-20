@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+documents/input/*
+documents/output/*
+documents.db
+.env
