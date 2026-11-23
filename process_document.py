@@ -10,29 +10,42 @@ from pytesseract import Output
 
 
 # Tesseract path configuration
+# Tesseract path configuration
+
 if os.name == "nt":
 
+    # Windows - VS Code
     pytesseract.pytesseract.tesseract_cmd = (
         r"C:\Program Files\Tesseract-OCR\tesseract.exe"
     )
 
 else:
 
-    pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+    # Linux - Render
+    tesseract_path = shutil.which("tesseract")
 
-
-# Check Tesseract only when OCR is required
-def check_tesseract():
-
-    path = pytesseract.pytesseract.tesseract_cmd
-
-    if not os.path.isfile(path) and not shutil.which(path):
-
+    if tesseract_path is None:
         raise FileNotFoundError(
-            "Tesseract OCR is not installed or path is incorrect."
+            "Tesseract OCR is missing. Install it in Docker."
         )
 
+    pytesseract.pytesseract.tesseract_cmd = tesseract_path
 
+
+# Check Tesseract installation
+def check_tesseract():
+
+    try:
+
+        version = pytesseract.get_tesseract_version()
+
+        print("Tesseract OCR version:", version)
+
+    except Exception as error:
+
+        raise RuntimeError(
+            f"Tesseract OCR is not working: {error}"
+        )
 # Image preprocessing
 def improve_image(image):
 
