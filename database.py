@@ -11,6 +11,7 @@ def create_database():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
+
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS documents (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,6 +31,7 @@ def create_database():
 def save_document(filename, file_type, extracted_text):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
+
 
     cursor.execute("""
         INSERT INTO documents
