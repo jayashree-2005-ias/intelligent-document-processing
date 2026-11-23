@@ -121,16 +121,7 @@ def upload():
             filename=original_filename,
             extracted_text=f"Processing Error: {error}"
         )
-# Document History route
-@app.route("/history")
-def history():
 
-    documents = get_documents()
-
-    return render_template(
-        "history.html",
-        documents=documents
-    )
 
 # Run application locally
 if __name__ == "__main__":
