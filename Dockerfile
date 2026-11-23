@@ -1,25 +1,19 @@
 FROM python:3.11-slim
 
+# Install Tesseract OCR and system dependencies
+RUN apt-get update && apt-get install -y \
+    tesseract-ocr \
+    libtesseract-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Install Tesseract OCR in Linux
-RUN apt-get update && \
-    apt-get install -y tesseract-ocr && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Verify Tesseract installation
-RUN which tesseract
-RUN tesseract --version
-
-# Copy requirements
+# Copy and install Python dependencies
 COPY requirements.txt .
-
-# Install Python libraries
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project files
+# Copy the rest of your application code
 COPY . .
 
-# Start Flask application
-CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:$PORT --timeout 180 --workers 1"]
+# Start the app with Gunicorn
+CMD ["gunicorn", "app:app"]
