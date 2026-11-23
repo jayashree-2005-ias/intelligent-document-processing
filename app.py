@@ -8,8 +8,14 @@ from database import create_database, save_document, get_documents
 from process_document import process_document
 
 
+# Create Flask application
 app = Flask(__name__)
 
+# Create database whenever application starts
+create_database()
+
+
+# Project folder location
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 INPUT_FOLDER = os.path.join(BASE_DIR, "documents", "input")
@@ -23,6 +29,7 @@ app.config["MAX_CONTENT_LENGTH"] = 15 * 1024 * 1024
 ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png"}
 
 
+# Check allowed file extensions
 def allowed_file(filename):
 
     if "." not in filename:
@@ -33,12 +40,14 @@ def allowed_file(filename):
     return extension in ALLOWED_EXTENSIONS
 
 
+# Home page
 @app.route("/")
 def home():
 
     return render_template("index.html")
 
 
+# Upload route
 @app.route("/upload", methods=["POST"])
 def upload():
 
@@ -55,14 +64,20 @@ def upload():
 
     original_filename = secure_filename(file.filename)
 
-    unique_filename = uuid.uuid4().hex + "_" + original_filename
+    unique_filename = (
+        uuid.uuid4().hex + "_" + original_filename
+    )
 
-    input_path = os.path.join(INPUT_FOLDER, unique_filename)
+    input_path = os.path.join(
+        INPUT_FOLDER,
+        unique_filename
+    )
 
     file.save(input_path)
 
     try:
 
+        # Process uploaded document
         extracted_text = process_document(input_path)
 
         text_filename = (
@@ -74,12 +89,16 @@ def upload():
             text_filename
         )
 
+        # Save extracted text
         with open(output_path, "w", encoding="utf-8") as output_file:
 
             output_file.write(extracted_text or "")
 
-        file_type = os.path.splitext(original_filename)[1].lower()
+        file_type = os.path.splitext(
+            original_filename
+        )[1].lower()
 
+        # Save document details in database
         save_document(
             original_filename,
             file_type,
@@ -89,7 +108,8 @@ def upload():
         return render_template(
             "result.html",
             filename=original_filename,
-            extracted_text=extracted_text or "No text found in this document."
+            extracted_text=extracted_text or
+            "No text found in this document."
         )
 
     except Exception as error:
@@ -103,8 +123,7 @@ def upload():
         )
 
 
+# Run application locally
 if __name__ == "__main__":
-
-    create_database()
 
     app.run(debug=True)
