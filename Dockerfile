@@ -2,15 +2,24 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    tesseract-ocr \
-    poppler-utils \
-    && rm -rf /var/lib/apt/lists/*
+# Install Tesseract OCR in Linux
+RUN apt-get update && \
+    apt-get install -y tesseract-ocr && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
+# Verify Tesseract installation
+RUN which tesseract
+RUN tesseract --version
+
+# Copy requirements
 COPY requirements.txt .
 
+# Install Python libraries
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy project files
 COPY . .
 
-CMD gunicorn --bind 0.0.0.0:$PORT app:app
+# Start Flask application
+CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:${PORT:-10000}"]

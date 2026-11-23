@@ -19,10 +19,10 @@ else:
 
     # Linux (Render)
     pytesseract.pytesseract.tesseract_cmd = (
-        shutil.which("tesseract") or "/usr/bin/tesseract"
+        "/usr/bin/tesseract"
     )
 
-
+#creating ocr function
 def preprocess_document(file_path):
 
     extension = os.path.splitext(file_path)[1].lower()
@@ -36,12 +36,14 @@ def preprocess_document(file_path):
 
         for page in pdf:
 
+        
             pix = page.get_pixmap(
                 matrix=fitz.Matrix(2, 2),
                 alpha=False
             )
 
             image = Image.frombytes(
+
                 "RGB",
                 (pix.width, pix.height),
                 pix.samples
@@ -75,3 +77,8 @@ def preprocess_document(file_path):
         raise ValueError("Unsupported document format")
 
     return extracted_text
+
+
+
+
+
